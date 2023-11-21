@@ -25,6 +25,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <stdarg.h>
 
 #include "bambu_networking.hpp"
 #include "ProjectTask.hpp"
@@ -35,7 +36,32 @@ using namespace BBL;
 
 namespace Slic3r {
 
+const char * _BSWHP_CONFIG_DIR = CONFIG_DIR;
+
 std::string _BSWHP_EXPECTED_LIB_VERSION = "01.08.00.03";
+
+std::string _BSWHP_get_env(const char * name){
+	const char * val = getenv(name);
+	return val == NULL ? std::string() : std::string(val);
+}
+
+std::string _BSWHP_config_dir(){
+
+	return _BSWHP_CONFIG_DIR;
+
+	// std::string home_dir = _BSWHP_get_env("HOME");
+	// #if __APPLE__
+	// 	return home_dir + "/Library/Application Support/BambuStudioBeta";
+	// #elif __linux__
+	// 	return home_dir + "/.config/BambuStudio";
+	// #else
+	// 	#error "Unknown platform or compiler"
+	// #endif
+}
+
+
+
+
 
 const char* _BSWHP_ws = " \t\n\r\f\v";
 std::string& _BSWHP_rtrim(std::string& s, const char* t = _BSWHP_ws){
@@ -52,10 +78,7 @@ std::string& _BSWHP_trim(std::string& s, const char* t = _BSWHP_ws){
 	return _BSWHP_ltrim(_BSWHP_rtrim(s, t), t);
 }
 
-std::string _BSWHP_get_env(const char * name){
-	const char * val = getenv(name);
-	return val == NULL ? std::string() : std::string(val);
-}
+
 
 
 
@@ -63,8 +86,8 @@ bool _BSWHP_debug_init = false;
 std::string _BSWHP_debug = "0";
 bool _BSWHP_is_debug(){
 	if ( ! _BSWHP_debug_init ){
-		std::string home_dir = _BSWHP_get_env("HOME");
-		std::string debugFilePath = std::string(home_dir) + "/Library/Application Support/BambuStudioBeta/bswhp_debug.txt";
+
+		std::string debugFilePath = _BSWHP_config_dir() + "/bswhp_debug.txt";
 		std::ifstream debugFile(debugFilePath.c_str());
 		if ( debugFile.is_open() ){
 			debugFile >> _BSWHP_debug;
@@ -113,7 +136,7 @@ std::string _BSWHP_get_url(){
 	if ( !_BSWHP_URL_INIT ){
 
 		std::string home_dir = _BSWHP_get_env("HOME");
-		std::string urlFilePath = std::string(home_dir) + "/Library/Application Support/BambuStudioBeta/bswhp_url.txt";
+		std::string urlFilePath = _BSWHP_config_dir() + "/bswhp_url.txt";
 
 		std::ifstream urlFile(urlFilePath.c_str());
 		if ( urlFile.is_open() ){
@@ -136,7 +159,7 @@ void * _BSWHP_get_library(){
 	if (!_BSWHP_LIBRARY){
 		std::string home_dir = _BSWHP_get_env("HOME");
 		if ( home_dir.length() > 0 ){
-			std::string path = std::string(home_dir) + "/Library/Application Support/BambuStudioBeta/plugins/o_libbambu_networking.dylib";
+			std::string path = _BSWHP_config_dir() + "/plugins/o_libbambu_networking.dylib";
 			_BSWHP_LIBRARY = dlopen( path.c_str(), RTLD_LAZY );
 		} else {
 			std::cerr << "ERROR: NO $HOME ENVIRONMENT VARIABLE, UNABLE TO DETERMINE LIBRARY LOCATION\n";
