@@ -1,0 +1,93 @@
+bambu_network_check_debug_consistent        | bool        | bool is_debug
+bambu_network_get_version                   | std::string |
+bambu_network_create_agent                  | void*       | std::string log_dir
+bambu_network_destroy_agent                 | int         | void *agent
+bambu_network_init_log                      | int         | void *agent
+bambu_network_set_config_dir                | int         | void *agent, std::string config_dir
+bambu_network_set_cert_file                 | int         | void *agent, std::string folder, std::string filename
+bambu_network_set_country_code              | int         | void *agent, std::string country_code
+bambu_network_start                         | int         | void *agent
+bambu_network_set_on_ssdp_msg_fn            | int         | void *agent, OnMsgArrivedFn fn
+bambu_network_set_on_user_login_fn          | int         | void *agent, OnUserLoginFn fn
+bambu_network_set_on_printer_connected_fn   | int         | void *agent, OnPrinterConnectedFn fn
+bambu_network_set_on_server_connected_fn    | int         | void *agent, OnServerConnectedFn fn
+bambu_network_set_on_http_error_fn          | int         | void *agent, OnHttpErrorFn fn
+bambu_network_set_get_country_code_fn       | int         | void *agent, GetCountryCodeFn fn
+bambu_network_set_on_subscribe_failure_fn   | int         | void *agent, GetSubscribeFailureFn fn
+bambu_network_set_on_message_fn             | int         | void *agent, OnMessageFn fn
+bambu_network_set_on_local_connect_fn       | int         | void *agent, OnLocalConnectedFn fn
+bambu_network_set_on_local_message_fn       | int         | void *agent, OnMessageFn fn
+bambu_network_set_queue_on_main_fn          | int         | void *agent, QueueOnMainFn fn
+bambu_network_connect_server                | int         | void *agent
+bambu_network_is_server_connected           | bool        | void *agent
+bambu_network_refresh_connection            | int         | void *agent
+bambu_network_start_subscribe               | int         | void *agent, std::string module
+bambu_network_stop_subscribe                | int         | void *agent, std::string module
+bambu_network_send_message                  | int         | void *agent, std::string dev_id, std::string json_str, int qos
+bambu_network_connect_printer               | int         | void *agent, std::string dev_id, std::string dev_ip, std::string username, std::string password, bool use_ssl
+bambu_network_disconnect_printer            | int         | void *agent
+bambu_network_send_message_to_printer       | int         | void *agent, std::string dev_id, std::string json_str, int qos
+bambu_network_start_discovery               | bool        | void *agent, bool start, bool sending
+bambu_network_change_user                   | int         | void *agent, std::string user_info
+bambu_network_is_user_login                 | bool        | void *agent
+bambu_network_user_logout                   | int         | void *agent
+bambu_network_get_user_id                   | std::string | void *agent
+bambu_network_get_user_name                 | std::string | void *agent
+bambu_network_get_user_avatar               | std::string | void *agent
+bambu_network_get_user_nickanme             | std::string | void *agent
+bambu_network_build_login_cmd               | std::string | void *agent
+bambu_network_build_logout_cmd              | std::string | void *agent
+bambu_network_build_login_info              | std::string | void *agent
+bambu_network_bind                          | int         | void *agent, std::string dev_ip, std::string dev_id, std::string sec_link, std::string timezone, bool improved, OnUpdateStatusFn update_fn
+bambu_network_unbind                        | int         | void *agent, std::string dev_id
+bambu_network_get_bambulab_host             | std::string | void *agent
+bambu_network_get_user_selected_machine     | std::string | void *agent
+bambu_network_set_user_selected_machine     | int         | void *agent, std::string dev_id
+bambu_network_start_print                   | int         | void *agent, PrintParams params, OnUpdateStatusFn update_fn, WasCancelledFn cancel_fn, OnWaitFn wait_fn
+bambu_network_start_local_print_with_record | int         | void *agent, PrintParams params, OnUpdateStatusFn update_fn, WasCancelledFn cancel_fn, OnWaitFn wait_fn
+bambu_network_start_send_gcode_to_sdcard    | int         | void *agent, PrintParams params, OnUpdateStatusFn update_fn, WasCancelledFn cancel_fn, OnWaitFn wait_fn
+bambu_network_start_local_print             | int         | void *agent, PrintParams params, OnUpdateStatusFn update_fn, WasCancelledFn cancel_fn
+bambu_network_get_user_presets              | int         | void *agent, std::map<std::string, std::map<std::string, std::string>>* user_presets
+bambu_network_request_setting_id            | std::string | void *agent, std::string name, std::map<std::string, std::string>* values_map, unsigned int* http_code
+bambu_network_put_setting                   | int         | void *agent, std::string setting_id, std::string name, std::map<std::string, std::string>* values_map, unsigned int* http_code
+bambu_network_get_setting_list              | int         | void *agent, std::string bundle_version, ProgressFn pro_fn, WasCancelledFn cancel_fn
+bambu_network_get_setting_list2             | int         | void* agent, std::string bundle_version, CheckFn chk_fn, ProgressFn pro_fn, WasCancelledFn cancel_fn
+bambu_network_delete_setting                | int         | void *agent, std::string setting_id
+bambu_network_get_studio_info_url           | std::string | void *agent
+bambu_network_set_extra_http_header         | int         | void *agent, std::map<std::string, std::string> extra_headers
+bambu_network_get_my_message                | int         | void *agent, int type, int after, int limit, unsigned int* http_code, std::string* http_body
+bambu_network_check_user_task_report        | int         | void *agent, int* task_id, bool* printable
+bambu_network_get_user_print_info           | int         | void *agent, unsigned int* http_code, std::string* http_body
+bambu_network_get_printer_firmware          | int         | void *agent, std::string dev_id, unsigned* http_code, std::string* http_body
+bambu_network_get_task_plate_index          | int         | void *agent, std::string task_id, int* plate_index
+bambu_network_get_user_info                 | int         | void *agent, int* identifier
+bambu_network_request_bind_ticket           | int         | void *agent, std::string* ticket
+bambu_network_get_subtask_info              | int         | void *agent, std::string subtask_id, std::string* task_json, unsigned int* http_code, std::string* http_body
+bambu_network_get_slice_info                | int         | void *agent, std::string project_id, std::string profile_id, int plate_index, std::string* slice_json
+bambu_network_query_bind_status             | int         | void *agent, std::vector<std::string> query_list, unsigned int* http_code, std::string* http_body
+bambu_network_modify_printer_name           | int         | void *agent, std::string dev_id, std::string dev_name
+bambu_network_get_camera_url                | int         | void *agent, std::string dev_id, std::function<void(std::string)> callback
+bambu_network_get_design_staffpick          | int         | void *agent, int offset, int limit, std::function<void(std::string)> callback
+bambu_network_start_publish                 | int         | void *agent, PublishParams params, OnUpdateStatusFn update_fn, WasCancelledFn cancel_fn, std::string* out
+bambu_network_get_profile_3mf               | int         | void *agent, BBLProfile* profile
+bambu_network_get_model_publish_url         | int         | void *agent, std::string* url
+bambu_network_get_subtask                   | int         | void *agent, BBLModelTask* task, OnGetSubTaskFn getsub_fn
+bambu_network_get_model_mall_home_url       | int         | void *agent, std::string* url
+bambu_network_get_model_mall_detail_url     | int         | void *agent, std::string* url, std::string id
+bambu_network_get_my_profile                | int         | void *agent, std::string token, unsigned int* http_code, std::string* http_body
+bambu_network_track_enable                  | int         | void *agent, bool enable
+bambu_network_track_event                   | int         | void *agent, std::string evt_key, std::string content
+bambu_network_track_header                  | int         | void *agent, std::string header
+bambu_network_track_update_property         | int         | void *agent, std::string name, std::string value, std::string type
+bambu_network_track_get_property            | int         | void *agent, std::string name, std::string& value, std::string type
+bambu_network_put_model_mall_rating         | int         | void *agent, int rating_id, int score, std::string content, std::vector<std::string> images, unsigned int &http_code, std::string &http_error
+bambu_network_get_oss_config                | int         | void *agent, std::string &config, std::string country_code, unsigned int &http_code, std::string &http_error
+bambu_network_put_rating_picture_oss        | int         | void *agent, std::string &config, std::string &pic_oss_path, std::string model_id, int profile_id, unsigned int &http_code, std::string &http_error
+bambu_network_get_model_mall_rating         | int         | void *agent, int job_id, std::string &rating_result, unsigned int &http_code, std::string &http_error
+
+
+
+
+
+
+
