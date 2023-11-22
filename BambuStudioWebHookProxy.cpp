@@ -41,10 +41,10 @@ const char * _BSWHP_ORIGINAL_LIBRARY_PATH = BSWHP_ORIGINAL_LIBRARY_PATH;
 
 std::string _BSWHP_EXPECTED_LIB_VERSION = "01.08.00.03";
 
-std::string _BSWHP_get_env(const char * name){
-	const char * val = getenv(name);
-	return val == NULL ? std::string() : std::string(val);
-}
+// std::string _BSWHP_get_env(const char * name){
+// 	const char * val = getenv(name);
+// 	return val == NULL ? std::string() : std::string(val);
+// }
 
 std::string _BSWHP_config_dir(){
 
@@ -138,7 +138,7 @@ std::string _BSWHP_URL = "";
 std::string _BSWHP_get_url(){
 	if ( !_BSWHP_URL_INIT ){
 
-		std::string home_dir = _BSWHP_get_env("HOME");
+		// std::string home_dir = _BSWHP_get_env("HOME");
 		std::string urlFilePath = _BSWHP_config_dir() + "/bswhp_url.txt";
 
 		std::ifstream urlFile(urlFilePath.c_str());
@@ -160,16 +160,16 @@ std::string _BSWHP_get_url(){
 static void * _BSWHP_LIBRARY = NULL;
 void * _BSWHP_get_library(){
 	if (!_BSWHP_LIBRARY){
-		std::string home_dir = _BSWHP_get_env("HOME");
-		if ( home_dir.length() > 0 ){
+		// std::string home_dir = _BSWHP_get_env("HOME");
+		// if ( home_dir.length() > 0 ){
 			std::string path = _BSWHP_original_library_path(); 
 			std::cout << "BSWHP loading original library from: " << path << "\n";
 			_BSWHP_LIBRARY = dlopen( path.c_str(), RTLD_LAZY );
 			std::cout << "BSWHP loaded library";
-		} else {
-			std::cerr << "ERROR: NO $HOME ENVIRONMENT VARIABLE, UNABLE TO DETERMINE LIBRARY LOCATION\n";
-			exit(1);
-		}
+		// } else {
+		// 	std::cerr << "ERROR: NO $HOME ENVIRONMENT VARIABLE, UNABLE TO DETERMINE LIBRARY LOCATION\n";
+		// 	exit(1);
+		// }
 	}
 
 	std::string libVersion = ((std::string(*)()) dlsym(_BSWHP_LIBRARY,"bambu_network_get_version") )();
@@ -188,6 +188,7 @@ void * _BSWHP_get_function(const char * name){
 	_BSWHPLOG_VERBOSE("getting function %s", name);
 	void * function = dlsym(library, name);
 	_BSWHPLOG_VERBOSE("got function %s", name);
+	std::cout << "function " << name << " location: " << function << "\n";
 	return function;
 }
 
@@ -686,7 +687,10 @@ extern "C" bool bambu_network_is_user_login(void *agent){
 		func_bambu_network_is_user_login = ((bool(*)(void *agent))f);
 	}
 
-	return func_bambu_network_is_user_login(agent);
+	bool result = func_bambu_network_is_user_login(agent);
+	_BSWHPLOG_VERBOSE("bambu_network_is_user_login result=%s", result);
+
+	return false;
 }
 
 

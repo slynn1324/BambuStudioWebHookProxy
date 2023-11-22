@@ -7,10 +7,12 @@ OS=$(uname -s)
 
 CONFIG_DIR="$HOME/Library/Application Support/BambuStudioBeta"
 LIB_EXT="dylib"
+COMPILE_ARGS=""
 
 if [ "Darwin" == "$OS" ]
 then
 	echo "macos"
+	COMPILE_ARGS="-I$(brew --prefix)/include"
 elif [ "Linux" == "$OS" ]
 then
 	echo "linux"
@@ -41,7 +43,7 @@ cd build
 
 
 echo "building..."
-g++ -std=c++17 -shared -fPIC -DBSWHP_CONFIG_DIR="\"$CONFIG_DIR\"" -DBSWHP_ORIGINAL_LIBRARY_PATH="\"$ORIGINAL_LIBRARY_PATH\"" -o "BambuStudioWebHookProxy.$LIB_EXT" BambuStudioWebHookProxy.cpp  
+g++ -std=c++17 -shared -fPIC $COMPILE_ARGS -DBSWHP_CONFIG_DIR="\"$CONFIG_DIR\"" -DBSWHP_ORIGINAL_LIBRARY_PATH="\"$ORIGINAL_LIBRARY_PATH\"" -o "BambuStudioWebHookProxy.$LIB_EXT" BambuStudioWebHookProxy.cpp  
 
 echo "moving original library"
 if ! test -f "$CONFIG_DIR/plugins/o_libbambu_networking.$LIB_EXT"; then
