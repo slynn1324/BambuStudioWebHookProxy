@@ -37,5 +37,18 @@ macOS:
 
 ```
 
+linux:
+```
+~/.config/BambuStudio/bswhp_url.txt
+    A single line with the URL you want messages posted to.
+
+~/.config/BambuStudio/bswhp_debug.txt
+    A single line with 0 = no debug logging, 1 = normal debug logging, 2 = verbose debug logging
+```
+
+
+## windows
+
+I don't run Windows, so this currently doesn't support Windows builds.  It should be easy to do, but I don't have a way to build it out.
 
 
