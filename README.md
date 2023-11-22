@@ -19,7 +19,7 @@ Function signatures derived from BambuStudio/src/slic3r/Utils/NetworkAgent.hpp
 
 ## building
 
-See build-mac.sh
+See build.sh
 
 
 ## configuration
@@ -51,4 +51,9 @@ linux:
 
 I don't run Windows, so this currently doesn't support Windows builds.  It should be easy to do, but I don't have a way to build it out.
 
+
+
+## buy me a beer
+
+If you find this useful and feel so inclinced, https://paypal.me/slynn1324.  Otherwise, simply enjoy. 
 
