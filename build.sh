@@ -8,7 +8,6 @@ OS=$(uname -s)
 CONFIG_DIR="$HOME/Library/Application Support/BambuStudioBeta"
 LIB_EXT="dylib"
 
-
 if [ "Darwin" == "$OS" ]
 then
 	echo "macos"
@@ -20,6 +19,7 @@ then
 fi
 
 echo "Config Dir = ${CONFIG_DIR}"
+ORIGINAL_LIBRARY_PATH="$CONFIG_DIR/plugins/o_libbambu_networking.$LIB_EXT"
 
 
 echo "setting up build dir..."
@@ -41,7 +41,7 @@ cd build
 
 
 echo "building..."
-g++ -std=c++17 -shared -fPIC -DCONFIG_DIR="\"$CONFIG_DIR\"" -o "BambuStudioWebHookProxy.$LIB_EXT" BambuStudioWebHookProxy.cpp  
+g++ -std=c++17 -shared -fPIC -DBSWHP_CONFIG_DIR="\"$CONFIG_DIR\"" -DBSWHP_ORIGINAL_LIBRARY_PATH="\"$ORIGINAL_LIBRARY_PATH\"" -o "BambuStudioWebHookProxy.$LIB_EXT" BambuStudioWebHookProxy.cpp  
 
 echo "moving original library"
 if ! test -f "$CONFIG_DIR/plugins/o_libbambu_networking.$LIB_EXT"; then

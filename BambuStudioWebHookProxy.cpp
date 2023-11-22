@@ -36,7 +36,8 @@ using namespace BBL;
 
 namespace Slic3r {
 
-const char * _BSWHP_CONFIG_DIR = CONFIG_DIR;
+const char * _BSWHP_CONFIG_DIR = BSWHP_CONFIG_DIR;
+const char * _BSWHP_ORIGINAL_LIBRARY_PATH = BSWHP_ORIGINAL_LIBRARY_PATH;
 
 std::string _BSWHP_EXPECTED_LIB_VERSION = "01.08.00.03";
 
@@ -47,7 +48,7 @@ std::string _BSWHP_get_env(const char * name){
 
 std::string _BSWHP_config_dir(){
 
-	return _BSWHP_CONFIG_DIR;
+	return std::string(_BSWHP_CONFIG_DIR);
 
 	// std::string home_dir = _BSWHP_get_env("HOME");
 	// #if __APPLE__
@@ -59,7 +60,9 @@ std::string _BSWHP_config_dir(){
 	// #endif
 }
 
-
+std::string _BSWHP_original_library_path(){
+	return std::string(_BSWHP_ORIGINAL_LIBRARY_PATH);
+}
 
 
 
@@ -159,8 +162,10 @@ void * _BSWHP_get_library(){
 	if (!_BSWHP_LIBRARY){
 		std::string home_dir = _BSWHP_get_env("HOME");
 		if ( home_dir.length() > 0 ){
-			std::string path = _BSWHP_config_dir() + "/plugins/o_libbambu_networking.dylib";
+			std::string path = _BSWHP_original_library_path(); 
+			std::cout << "BSWHP loading original library from: " << path << "\n";
 			_BSWHP_LIBRARY = dlopen( path.c_str(), RTLD_LAZY );
+			std::cout << "BSWHP loaded library";
 		} else {
 			std::cerr << "ERROR: NO $HOME ENVIRONMENT VARIABLE, UNABLE TO DETERMINE LIBRARY LOCATION\n";
 			exit(1);
