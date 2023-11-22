@@ -12,6 +12,18 @@ Dependencies from the BambuStudio src: BambuStudio/src/slic3r/Utils/bambu_networ
 
 Function signatures derived from BambuStudio/src/slic3r/Utils/NetworkAgent.hpp
 
+
+## Supported OS
+
+This is currently supported on macOS and Linux.  (Specifically tested on macOS 14 and Debian 12). 
+
+I don't run Windows, and don't have a way to build out Windows support (much less personal need).  I'd be happy to take a PR.  
+
 ## Where is it? 
 
 Select the branch matching the version of the Bambu Studio network plugin.
+
+
+## buy me a beer
+
+If you find this useful and feel so inclinced, https://paypal.me/slynn1324.  Otherwise, simply enjoy. 
